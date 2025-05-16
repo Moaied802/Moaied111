@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الحضور</title>
+  <script>
+    function redirectToForm(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+
+      var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSdAKubrG-xGWsT28S0JNyCg8UnsrOeHmzGgYxyG89Nt3rpcrw/viewform";
+      var finalURL = formURL +
+        "?entry.1149706577=" + encodeURIComponent(lat) +
+        "&entry.1468546829=" + encodeURIComponent(lon);
+
+      window.location.href = finalURL;
+    }
+
+    function showError(error) {
+      document.body.innerHTML = "<h3>فشل تحديد الموقع: " + error.message + "</h3>";
+    }
+
+    window.onload = function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(redirectToForm, showError);
+      } else {
+        document.body.innerHTML = "<h3>المتصفح لا يدعم تحديد الموقع.</h3>";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>جاري تحديد موقعك وتحويلك إلى نموذج الحضور...</h2>
+</body>
+</html>
